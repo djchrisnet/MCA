@@ -7,7 +7,7 @@
 *
 */
 
-var KBank = (new function(data) {
+function KBank(data) {
 	var _data = {};
 	
 	/* COMMAND */
@@ -149,4 +149,4 @@ var KBank = (new function(data) {
 		
 		return transit;
 	};
-}());
+};
