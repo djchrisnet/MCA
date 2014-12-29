@@ -10,7 +10,6 @@
 var KBank = (new function(data) {
 	var _data = {};
 	
-	/* COMMAND */
 	this.create = function(uid) {
 		if(uid === undefined) {
 			return;
@@ -97,18 +96,33 @@ var KBank = (new function(data) {
 		return true;
 	};
 	
-	this.payout = function(uid, kn) {
+	this.payout = function(uid, kn, reason) {
 		if(uid === undefined) {
-			return;
+			return false;
 		}
 		
 		if(kn === undefined) {
-			return;
+			return false;
+		}
+		
+		if(kn > _data[uid].knuddel) {
+			return false;
+		}
+
+		if(kn < 1) {
+			return false;
 		}
 		
 		this.create(uid);
 		_data[uid].knuddel -= kn;
-		_data[uid].payout += kn;		
+		_data[uid].payout += kn;
+		
+		if(reason === undefined) {
+			KnuddelsServer.getDefaultBotUser().transferKnuddel(KnuddelsServer.getUser(uid), kn);
+		} else {
+			KnuddelsServer.getDefaultBotUser().transferKnuddel(KnuddelsServer.getUser(uid), kn, reason);
+		}
+		return true;
 	};
 
 	this.payin = function(uid, kn) {
