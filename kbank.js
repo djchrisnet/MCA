@@ -7,7 +7,7 @@
 *
 */
 
-var KBank = (new function(data) {
+function KBank(data) {
 	var _data = {};
 	
 	this.create = function(uid) {
@@ -163,4 +163,4 @@ var KBank = (new function(data) {
 		
 		return transit;
 	};
-}());
+};
